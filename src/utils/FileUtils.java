@@ -4,6 +4,11 @@ import java.io.*;
 
 public class FileUtils {
 
+    /**
+     * Method used to open a file and read the first line of it based on a given directory.
+     * @param filePath Directory or name where the file is located
+     * @return String with the first line of the file OR null if problem ocurred
+     */
     public static String getStringFileContent(String filePath){
         File file = new File(filePath);
         BufferedReader reader = null;

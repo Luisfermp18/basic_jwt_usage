@@ -4,17 +4,18 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
 
 public class JWTUtils {
 
-    private static final String CLAIM_ID = "userInfo";
-
+    /**
+     * Method used to encrypt a specific information facilitated by parameters using as HMAC256 algorithm and as key, the read from file.
+     * @param userInfo information to encrypt
+     * @param fileKeyName Directory or name where the file is located
+     * @return String with the token encrypted
+     */
     public static String encryptInformation(String userInfo, String fileKeyName){
         String key = FileUtils.getStringFileContent(fileKeyName);
 
@@ -23,7 +24,7 @@ public class JWTUtils {
                 Algorithm algorithm = Algorithm.HMAC256(key);
 
                 return JWT.create()
-                        .withIssuer(userInfo)
+                        .withSubject(userInfo)
                         .sign(algorithm);
             }
         } catch (UnsupportedEncodingException e) {
@@ -34,7 +35,12 @@ public class JWTUtils {
 
     }
 
-
+    /**
+     * Method used to decrypt a specific information facilitated by parameters using as HMAC256 algorithm and as key, the read from file.
+     * @param stringToDecrypt information to decrypt
+     * @param fileKeyName Directory or name where the file is located
+     * @return String with the user information decrypted
+     */
     public static String decryptInformation(String stringToDecrypt, String fileKeyName){
         String key = FileUtils.getStringFileContent(fileKeyName);
 
@@ -45,7 +51,7 @@ public class JWTUtils {
             DecodedJWT jwt = verifier.verify(stringToDecrypt);
 
 
-            return jwt.getIssuer();
+            return jwt.getSubject();
 
         } catch (UnsupportedEncodingException e){
             //UTF-8 encoding not supported

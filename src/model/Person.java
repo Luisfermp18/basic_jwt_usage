@@ -2,30 +2,20 @@ package model;
 
 public class Person {
 
-    private String name;
-    private String surname;
+    private String userCode;
     private String token;
 
-    public Person(String name, String surname, String token) {
-        this.name = name;
-        this.surname = surname;
+    public Person(String userCode, String token) {
+        this.userCode = userCode;
         this.token = token;
     }
 
-    public String getName() {
-        return name;
+    public String getUserCode() {
+        return userCode;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getToken() {
@@ -36,12 +26,10 @@ public class Person {
         this.token = token;
     }
 
-
     @Override
     public String toString() {
         return "Person{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                "userCode='" + userCode + '\'' +
                 ", token='" + token + '\'' +
                 '}';
     }
